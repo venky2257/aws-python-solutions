@@ -51,7 +51,3 @@ Feel free to fork or adapt for your own learning or team onboarding.
 
 ## 👤 Maintained by
 **Venkatesh Venky**
-
----
-
-Let’s dive in → start with [`lambda-containerization`](./lambda-containerization/README.md)

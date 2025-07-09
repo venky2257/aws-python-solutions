@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Alarm if specific jobType not detected in Lambda logs in last 1 hour
+
+Parameters:
+  LogGroupName:
+    Type: String
+    Description: CloudWatch Log Group of the Lambda function
+
+  JobTypeString:
+    Type: String
+    Description: The jobType string to look for in the logs (e.g., "jobType:ETL_JOB_A")
+
+Resources:
+  JobTypeLogQueryAlarm:
+    Type: AWS::Logs::QueryDefinition
+    Properties:
+      Name: !Sub "JobType-${JobTypeString}-Query"
+      QueryString: !Sub |
+        fields @timestamp, @message
+        | filter @message like /${JobTypeString}/
+        | stats count() as matches
+      LogGroupNames:
+        - !Ref LogGroupName
